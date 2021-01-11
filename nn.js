@@ -33,7 +33,9 @@ class NeuralNetwork {
   }
 
   static createModel() {
+    // Tworzę model sekwencyjny
     const model = tf.sequential();
+    // Tworzę pierwszą warstwę
     let hidden = tf.layers.dense({
       inputShape: [INPUTS],
       units: HIDDEN,
@@ -65,17 +67,19 @@ class NeuralNetwork {
   // Accept an arbitrary function for mutation
   mutate(func) {
     tf.tidy(() => {
-      const w = this.model.getWeights();
-      for (let i = 0; i < w.length; i++) {
-        let shape = w[i].shape;
-        let arr = w[i].dataSync().slice();
-        for (let j = 0; j < arr.length; j++) {
-          arr[j] = func(arr[j]);
+      const weights = this.model.getWeights();
+      const mutatedWeights = [];
+      for (let i = 0; i < weights.length; i++) {
+        const tensor = weights[i];
+        const shape = tensor.shape;
+        const values = tensor.dataSync().slice();
+        for (let j = 0; j < values.length; j++) {
+          values[j] = func(values[j]);
         }
-        let newW = tf.tensor(arr, shape);
-        w[i] = newW;
+        let newW = tf.tensor(values, shape);
+        weights[i] = newW;
       }
-      this.model.setWeights(w);
+      this.model.setWeights(weights);
     });
   }
 }

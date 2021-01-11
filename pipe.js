@@ -28,8 +28,8 @@ class Pipe {
 
   // Rysowanie rury
   show() {
-    stroke(255);
-    fill(200);
+    // stroke(255);
+    fill("rgba(0,255,0, 1)");
     rect(this.x, 0, this.w, this.top);
     rect(this.x, height - this.bottom, this.w, this.bottom);
   }

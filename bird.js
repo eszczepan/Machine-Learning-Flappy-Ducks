@@ -36,9 +36,10 @@ class Bird {
 
   // Wyświetlaj obiekt
   show() {
-    fill(255, 100);
-    stroke(255);
-    ellipse(this.x, this.y, this.r * 2, this.r * 2);
+    // fill(0, 255);
+    // stroke(255);
+    // ellipse(this.x, this.y, this.r * 2, this.r * 2);
+    image(img, this.x, this.y, this.r * 2, this.r * 2);
   }
 
   save() {
@@ -52,7 +53,7 @@ class Bird {
     let record = Infinity;
     for (let i = 0; i < pipes.length; i++) {
       // Obliczenie dystansu między obiektem a rurami
-      let distance = pipes[i].x - this.x;
+      let distance = pipes[i].x + pipes[i].w - this.x;
       // Jeżeli dystans jest większy od 0 i mniejszy od zanotowanego wcześniej dystansu
       if (distance > 0 && distance < record) {
         record = distance;

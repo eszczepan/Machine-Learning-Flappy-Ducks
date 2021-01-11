@@ -23,11 +23,18 @@ let runBest = false;
 let runBestButton;
 let saveButton;
 
+let bg;
+let img;
+
+function preload() {
+  img = loadImage("./bird.png");
+}
+
 function setup() {
+  bg = loadImage("./bg.png");
   let canvas = createCanvas(600, 400);
   tf.setBackend("cpu");
   canvas.parent("canvascontainer");
-
   // Dostęp do elementów interfajsu
   speedSlider = select("#speedSlider");
   speedSpan = select("#speed");
@@ -59,7 +66,7 @@ function toggleState() {
 }
 
 function draw() {
-  background(0);
+  background(bg);
 
   // Czy powinniśmy zwiększyć szybkość cykli na klatke
   let cycles = speedSlider.value();
@@ -165,6 +172,7 @@ function draw() {
     // Pojawienie się nowej generacji jeżeli nie ma aktywnych obiektów
     if (activeBirds.length == 0) {
       nextGeneration();
+      console.log("Next generation");
     }
   }
 }
