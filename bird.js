@@ -51,13 +51,15 @@ class Bird {
     let closest = null;
     let record = Infinity;
     for (let i = 0; i < pipes.length; i++) {
-      let diff = pipes[i].x - this.x;
-      if (diff > 0 && diff < record) {
-        record = diff;
+      // Obliczenie dystansu między obiektem a rurami
+      let distance = pipes[i].x - this.x;
+      // Jeżeli dystans jest większy od 0 i mniejszy od zanotowanego wcześniej dystansu
+      if (distance > 0 && distance < record) {
+        record = distance;
         closest = pipes[i];
       }
     }
-
+    // Jeżeli istnieje najbliższa rura
     if (closest != null) {
       // Stowrzenie wejść do sieci neuronowej
       let inputs = [];
@@ -73,9 +75,9 @@ class Bird {
       inputs[4] = map(this.velocity, -5, 5, 0, 1);
 
       // Odbierz wyjścia z sieci
-      let action = this.brain.predict(inputs);
+      let outputs = this.brain.predict(inputs);
       // Decyzja czy skakać czy nie
-      if (action[1] > action[0]) {
+      if (outputs[1] > outputs[0]) {
         this.up();
       }
     }

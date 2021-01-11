@@ -2,7 +2,7 @@
 let totalPopulation = 100;
 // Aktywne obiekty (te które nie miały kolizji z rurą)
 let activeBirds = [];
-// Wszystkie obiekty dla danej populacji
+// Kopia wszystkich elementów danej populacji (potrzebna dla algorytmu genetycznego, gdyż z activeBirds są usuwane obiekty)
 let allBirds = [];
 // Pipes
 let pipes = [];
@@ -36,19 +36,12 @@ function setup() {
   runBestButton = select("#best");
   runBestButton.mousePressed(toggleState);
 
-  saveButton = select("#save");
-  saveButton.mousePressed(saveModel);
-
   // Stworzenie populacji
   for (let i = 0; i < totalPopulation; i++) {
     let bird = new Bird();
     activeBirds[i] = bird;
     allBirds[i] = bird;
   }
-}
-
-function saveModel() {
-  bestBird.save();
 }
 
 // Toggle zmiany stanu symulacji
@@ -100,7 +93,7 @@ function draw() {
     } else {
       for (let i = activeBirds.length - 1; i >= 0; i--) {
         let bird = activeBirds[i];
-        // Obiekt używa swojego mózgu
+        // Obiekt używa swojego "mózgu" czyli sieci neuronowej
         bird.think(pipes);
         bird.update();
 

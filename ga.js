@@ -44,7 +44,6 @@ function normalizeFitness(birds) {
   for (let i = 0; i < birds.length; i++) {
     birds[i].score = pow(birds[i].score, 2);
   }
-
   // Dodanie wszystkich wyników
   let sum = 0;
   for (let i = 0; i < birds.length; i++) {
@@ -60,22 +59,19 @@ function normalizeFitness(birds) {
 function poolSelection(birds) {
   // Rozpoczęcie od 0
   let index = 0;
-
   // Wybranie losowego numeru z zakresu 0 - 1
   let r = random(1);
-
   // Odejmuj prawdopodobieństwo aż uzyskasz mniej niż zero
   // Wieksze prawdopodobieństwo będzie naprawione
   // Odejmuj większą liczbę aż do 0
   while (r > 0) {
+    // birds[index].fitness - wybór na podstawie prawodpodobieństwa
     r -= birds[index].fitness;
     // Dodaj do indexu
     index += 1;
   }
-
   // Odejmij od indexu
   index -= 1;
-
   // Upewnij się że to jest kopia
   // (zawiera mutacje)
   return birds[index].copy();
