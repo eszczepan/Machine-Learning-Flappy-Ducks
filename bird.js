@@ -4,11 +4,9 @@ class Bird {
     this.x = 64;
     this.y = height / 2;
     this.r = 12;
-
-    // Grawitacja, podnoszenie i szybkość
-    this.gravity = 0.8;
-    this.lift = -12;
-    this.velocity = 0;
+    this.gravity = 0.8; // grawitacja
+    this.lift = -12; // wartość podnoszenia agenta
+    this.velocity = 0; // szybkość agenta
 
     // Czy to jest kopia obiektu czy nowy obiekt
     // Sieć neuronowa jest "mózgiem" obiektu

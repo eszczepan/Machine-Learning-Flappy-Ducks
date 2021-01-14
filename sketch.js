@@ -22,12 +22,13 @@ let highScore = 0;
 let runBest = false;
 let runBestButton;
 let saveButton;
+let generation = 1;
 
 let bg;
 let img;
 
 function preload() {
-  img = loadImage("./bird.png");
+  img = loadImage("./duck.svg");
 }
 
 function setup() {
@@ -41,6 +42,7 @@ function setup() {
   highScoreSpan = select("#hs");
   allTimeHighScoreSpan = select("#ahs");
   runBestButton = select("#best");
+  gen = select("#gen");
   runBestButton.mousePressed(toggleState);
 
   // Stworzenie populacji
@@ -57,11 +59,11 @@ function toggleState() {
   // Pokazywanie najlepszego obiektu
   if (runBest) {
     resetGame();
-    runBestButton.html("continue training");
+    runBestButton.html("Continue training");
     // Jeżeli nie to trenuj dalej
   } else {
     nextGeneration();
-    runBestButton.html("run best");
+    runBestButton.html("Save model");
   }
 }
 
@@ -155,8 +157,8 @@ function draw() {
   }
 
   // Aktualizowanie elementów DOM
-  highScoreSpan.html(tempHighScore);
-  allTimeHighScoreSpan.html(highScore);
+  highScoreSpan.html(Math.floor(tempHighScore));
+  allTimeHighScoreSpan.html(Math.floor(highScore));
 
   // Rysowanie wszystkiego
   for (let i = 0; i < pipes.length; i++) {
@@ -172,7 +174,8 @@ function draw() {
     // Pojawienie się nowej generacji jeżeli nie ma aktywnych obiektów
     if (activeBirds.length == 0) {
       nextGeneration();
-      console.log("Next generation");
+      generation++;
+      gen.html(`${generation}`);
     }
   }
 }
