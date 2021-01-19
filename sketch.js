@@ -1,9 +1,9 @@
 // Jak duża jest populacja
-let totalPopulation = 100;
+let totalPopulation = 200;
 // Aktywne obiekty (te które nie miały kolizji z rurą)
-let activeBirds = [];
-// Kopia wszystkich elementów danej populacji (potrzebna dla algorytmu genetycznego, gdyż z activeBirds są usuwane obiekty)
-let allBirds = [];
+let activeDucks = [];
+// Kopia wszystkich elementów danej populacji (potrzebna dla algorytmu genetycznego, gdyż z activeDucks są usuwane obiekty)
+let allDucks = [];
 // Pipes
 let pipes = [];
 // Licznik klatek żeby wiedzieć czy generować następną rurę
@@ -47,9 +47,9 @@ function setup() {
 
   // Stworzenie populacji
   for (let i = 0; i < totalPopulation; i++) {
-    let bird = new Bird();
-    activeBirds[i] = bird;
-    allBirds[i] = bird;
+    let duck = new Duck();
+    activeDucks[i] = duck;
+    allDucks[i] = duck;
   }
 }
 
@@ -85,39 +85,38 @@ function draw() {
     }
     // Jeżeli pozwalamy najlepszemu obiektowi grać
     if (runBest) {
-      bestBird.think(pipes);
-      bestBird.update();
+      bestDuck.think(pipes);
+      bestDuck.update();
       for (let j = 0; j < pipes.length; j++) {
         // Reset gry jeżeli wystąpiła kolizja z rurą
-        if (pipes[j].hits(bestBird)) {
+        if (pipes[j].hits(bestDuck)) {
           resetGame();
           break;
         }
       }
 
-      if (bestBird.bottomTop()) {
+      if (bestDuck.bottomTop()) {
         resetGame();
       }
       // Jeżeli pozwalamy wszystkim obiektom grać
     } else {
-      for (let i = activeBirds.length - 1; i >= 0; i--) {
-        let bird = activeBirds[i];
-        // Obiekt używa swojego "mózgu" czyli sieci neuronowej
-        bird.think(pipes);
-        bird.update();
+      for (let i = activeDucks.length - 1; i >= 0; i--) {
+        let duck = activeDucks[i];
+        duck.think(pipes);
+        duck.update();
 
         // Sprawdzenie wszystkich rur
         for (let j = 0; j < pipes.length; j++) {
           // Kolizja z rurą
-          if (pipes[j].hits(activeBirds[i])) {
+          if (pipes[j].hits(activeDucks[i])) {
             // Usunięcue wszystkich obiektów
-            activeBirds.splice(i, 1);
+            activeDucks.splice(i, 1);
             break;
           }
         }
 
-        if (bird.bottomTop()) {
-          activeBirds.splice(i, 1);
+        if (duck.bottomTop()) {
+          activeDucks.splice(i, 1);
         }
       }
     }
@@ -134,23 +133,23 @@ function draw() {
   // Jeżeli trenujemy obiekty
   if (!runBest) {
     // Który obiekt jest najlepszy
-    let tempBestBird = null;
-    for (let i = 0; i < activeBirds.length; i++) {
-      let s = activeBirds[i].score;
+    let tempbestDuck = null;
+    for (let i = 0; i < activeDucks.length; i++) {
+      let s = activeDucks[i].score;
       if (s > tempHighScore) {
         tempHighScore = s;
-        tempBestBird = activeBirds[i];
+        tempbestDuck = activeDucks[i];
       }
     }
 
     // Czy obecny obiekt ma lepszy wynik od najlepszego poprzedniego
     if (tempHighScore > highScore) {
       highScore = tempHighScore;
-      bestBird = tempBestBird;
+      bestDuck = tempbestDuck;
     }
   } else {
     // Jeden obiekt najlepszy dotychczas
-    tempHighScore = bestBird.score;
+    tempHighScore = bestDuck.score;
     if (tempHighScore > highScore) {
       highScore = tempHighScore;
     }
@@ -166,13 +165,13 @@ function draw() {
   }
 
   if (runBest) {
-    bestBird.show();
+    bestDuck.show();
   } else {
-    for (let i = 0; i < activeBirds.length; i++) {
-      activeBirds[i].show();
+    for (let i = 0; i < activeDucks.length; i++) {
+      activeDucks[i].show();
     }
     // Pojawienie się nowej generacji jeżeli nie ma aktywnych obiektów
-    if (activeBirds.length == 0) {
+    if (activeDucks.length == 0) {
       nextGeneration();
       generation++;
       gen.html(`${generation}`);

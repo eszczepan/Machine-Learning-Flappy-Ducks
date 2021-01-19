@@ -2,8 +2,8 @@
 function resetGame() {
   counter = 0;
   // Resetowanie wyniku najlepszego obiektu
-  if (bestBird) {
-    bestBird.score = 0;
+  if (bestDuck) {
+    bestDuck.score = 0;
   }
   pipes = [];
 }
@@ -12,67 +12,60 @@ function resetGame() {
 function nextGeneration() {
   resetGame();
   // Normalizacja dopasowanie do wartości 0 - 1
-  normalizeFitness(allBirds);
+  normalizeFitness(allDucks);
   // Generowanie nowych obiektów
-  activeBirds = generate(allBirds);
+  activeDucks = generate(allDucks);
 
   // Usuwanie z pamięci
-  for (let bird of allBirds) {
-    if (bird !== bestBird) {
-      bird.dispose();
+  for (let duck of allDucks) {
+    if (duck !== bestDuck) {
+      duck.dispose();
     }
   }
 
   // Kopiowanie obiektów do osobnej tablicy
-  allBirds = activeBirds.slice();
+  allDucks = activeDucks.slice();
 }
 
 // Generowanie nowej populacji obiektów
-function generate(oldBirds) {
-  let newBirds = [];
-  for (let i = 0; i < oldBirds.length; i++) {
+function generate(oldDucks) {
+  const newDucks = [];
+  for (let i = 0; i < oldDucks.length; i++) {
     // Wybranie obiektu na podstawie dopasowania
-    let bird = poolSelection(oldBirds);
-    newBirds[i] = bird;
+    const duck = poolSelection(oldDucks);
+    newDucks[i] = duck;
   }
-  return newBirds;
+  return newDucks;
 }
 
 // Normalizowanie dopasowania wszystkich obiektów
-function normalizeFitness(birds) {
+function normalizeFitness(ducks) {
   // Wynik wykładniczy
-  for (let i = 0; i < birds.length; i++) {
-    birds[i].score = pow(birds[i].score, 2);
+  for (let i = 0; i < ducks.length; i++) {
+    ducks[i].score = pow(ducks[i].score, 2);
   }
   // Dodanie wszystkich wyników
   let sum = 0;
-  for (let i = 0; i < birds.length; i++) {
-    sum += birds[i].score;
+  for (let i = 0; i < ducks.length; i++) {
+    sum += ducks[i].score;
   }
   // Podzielenie przez sum
-  for (let i = 0; i < birds.length; i++) {
-    birds[i].fitness = birds[i].score / sum;
+  for (let i = 0; i < ducks.length; i++) {
+    ducks[i].fitness = ducks[i].score / sum;
   }
 }
 
 // Algorytm do wybierania obiektu na podstawie dopasowania
-function poolSelection(birds) {
+function poolSelection(ducks) {
   // Rozpoczęcie od 0
   let index = 0;
   // Wybranie losowego numeru z zakresu 0 - 1
   let r = random(1);
-  // Odejmuj prawdopodobieństwo aż uzyskasz mniej niż zero
-  // Wieksze prawdopodobieństwo będzie naprawione
-  // Odejmuj większą liczbę aż do 0
   while (r > 0) {
-    // birds[index].fitness - wybór na podstawie prawodpodobieństwa
-    r -= birds[index].fitness;
-    // Dodaj do indexu
+    // ducks[index].fitness - wybór na podstawie prawodpodobieństwa
+    r -= ducks[index].fitness;
     index += 1;
   }
-  // Odejmij od indexu
   index -= 1;
-  // Upewnij się że to jest kopia
-  // (zawiera mutacje)
-  return birds[index].copy();
+  return ducks[index].copy();
 }

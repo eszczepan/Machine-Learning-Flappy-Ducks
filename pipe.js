@@ -17,9 +17,9 @@ class Pipe {
   }
 
   // Funkcja sprawdzająca czy rura dotkęła obiekt
-  hits(bird) {
-    if (bird.y - bird.r < this.top || bird.y + bird.r > height - this.bottom) {
-      if (bird.x > this.x && bird.x < this.x + this.w) {
+  hits(duck) {
+    if (duck.y - duck.r < this.top || duck.y + duck.r > height - this.bottom) {
+      if (duck.x > this.x && duck.x < this.x + this.w) {
         return true;
       }
     }

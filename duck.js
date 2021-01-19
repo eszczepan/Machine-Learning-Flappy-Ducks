@@ -1,4 +1,4 @@
-class Bird {
+class Duck {
   constructor(brain) {
     // Pozycja i wielkość obiektu
     this.x = 64;
@@ -7,6 +7,10 @@ class Bird {
     this.gravity = 0.8; // grawitacja
     this.lift = -12; // wartość podnoszenia agenta
     this.velocity = 0; // szybkość agenta
+    // Wynik ile klatek obiekt był żywy
+    this.score = 0;
+    // Dopasowanie jest znormalizowanym wynikiem
+    this.fitness = 0;
 
     // Czy to jest kopia obiektu czy nowy obiekt
     // Sieć neuronowa jest "mózgiem" obiektu
@@ -16,16 +20,11 @@ class Bird {
     } else {
       this.brain = new NeuralNetwork();
     }
-
-    // Wynik ile klatek obiekt był żywy
-    this.score = 0;
-    // Dopasowanie jest znormalizowanym wynikiem
-    this.fitness = 0;
   }
 
   // Stworzenie kopii obiektu
   copy() {
-    return new Bird(this.brain);
+    return new Duck(this.brain);
   }
 
   dispose() {
@@ -34,7 +33,7 @@ class Bird {
 
   // Wyświetlaj obiekt
   show() {
-    // fill(0, 255);
+    // fill(255, 255);
     // stroke(255);
     // ellipse(this.x, this.y, this.r * 2, this.r * 2);
     image(img, this.x, this.y, this.r * 2, this.r * 2);
@@ -73,7 +72,7 @@ class Bird {
       // szybkość y obiektu
       inputs[4] = map(this.velocity, -5, 5, 0, 1);
 
-      // Odbierz wyjścia z sieci
+      // Predict zwraca wartości wyjściowe
       let outputs = this.brain.predict(inputs);
       // Decyzja czy skakać czy nie
       if (outputs[1] > outputs[0]) {
@@ -88,17 +87,14 @@ class Bird {
   }
 
   bottomTop() {
-    // Czy obiekt umiera kiedy dotknie dołu
     return this.y > height || this.y < 0;
   }
 
   // Aktualizacja pozycji obiektu na podstawie grawitacji i szybkości
   update() {
     this.velocity += this.gravity;
-    // this.velocity *= 0.9;
     this.y += this.velocity;
-
-    // Zwiększaj wynik z każdą klatką
+    // Zwiększa wynik z każdą klatką
     this.score++;
   }
 }
