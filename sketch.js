@@ -28,11 +28,11 @@ let bg;
 let img;
 
 function preload() {
-  img = loadImage("./duck.svg");
+  img = loadImage("./assets/images/duck.svg");
 }
 
 function setup() {
-  bg = loadImage("./bg.png");
+  bg = loadImage("./assets/images/bg.png");
   let canvas = createCanvas(600, 400);
   tf.setBackend("cpu");
   canvas.parent("canvascontainer");
