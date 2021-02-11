@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: aqua;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.panel>p {
+  margin: 14px auto;
+}
+
+#best {
+  padding: 7px 20px;
+  border: none;
+  background-color: gold;
+  color: #333;
+  border-radius: 50px;
+  outline: none;
+}

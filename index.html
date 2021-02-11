@@ -1,40 +1,18 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script language="javascript" type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
   <script language="javascript" type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.4/dist/tf.min.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  <title>Flappy Ducks</title>
 </head>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-  }
-
-  .container {
-    background-color: aqua;
-    height: 100vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
-  .panel>p {
-    margin: 14px auto;
-  }
-
-  #best {
-    padding: 7px 20px;
-    border: none;
-    background-color: gold;
-    color: #333;
-    border-radius: 50px;
-    outline: none;
-  }
-</style>
 
 <body>
   <script language="javascript" type="text/javascript" src="nn.js"></script>
@@ -53,5 +31,3 @@
     <div id="canvascontainer"></div>
   </div>
 </body>
-
-</html>
