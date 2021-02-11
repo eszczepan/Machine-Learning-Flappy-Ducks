@@ -38,7 +38,7 @@ Inputs to the neural network are created on the basis of several variables:
 5. Agent y-axis speed
 
 <p align="center">
-  <img src="assets/screenshots/screenshot-3.png" alt="Neural-network-architecture" width="600" height="800">
+  <img src="assets/screenshots/screenshot-3.png" alt="Neural-network-architecture">
 </p>
 
 ## Genetic Algorithm
@@ -48,12 +48,12 @@ In a genetic algorithm, a population of candidate solutions (ducks) to an optimi
 
 The operation of the algorithm in the project is as follows:
 
-**Step 1. Initialization:** Generation of a neural network population of 100 ducks in which each agent has random genetic material.
-**Step 2. Assessment:** Each agent in the population has its own neural network with which it makes a decision. If all the ducks in the population collide with an obstacle or with the edge of a window, they are removed and the next step is proceeded.
-**Step 3. Selection:** Calculating the fit based on the results of each element of the population meeting the specified conditions (longest surviving).
+**Step 1. Initialization:** Generation of a neural network population of 100 ducks in which each agent has random genetic material.  
+**Step 2. Assessment:** Each agent in the population has its own neural network with which it makes a decision. If all the ducks in the population collide with an obstacle or with the edge of a window, they are removed and the next step is proceeded.  
+**Step 3. Selection:** Calculating the fit based on the results of each element of the population meeting the specified conditions (longest surviving).  
 **Step 4. Reproduction**: Selecting the parent with the relatively best match (result) and copying its neural network,
 Crossbreeding - creating a child by combining half of the genetic information from one parent and the other,
-Mutation - DNA mutation based on the probability percentage of a specific change.
+Mutation - DNA mutation based on the probability percentage of a specific change.  
 **Step 5. Replace the old population with the new one and return to step no. 2.**
 
 ## Resources and Credits
